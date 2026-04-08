@@ -1,0 +1,13 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# PDFs y archivos fuente (no son parte del chatbot)
+*.pdf
+*.pptx
+*.xlsx
+
+# Python cache (si se reinstala backend luego)
+__pycache__/
+*.pyc
+.env
