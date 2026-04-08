@@ -216,11 +216,11 @@ html, body {
 
 /* Double check marks for user messages */
 .message-user .message-time::after {
-  content: '\\2713\\2713';
+  content: '✓✓';
   color: #53BDEB;
-  font-size: 13px;
-  letter-spacing: -3px;
-  margin-left: 2px;
+  font-size: 11px;
+  letter-spacing: -2px;
+  margin-left: 4px;
 }
 
 /* ===== Typing Indicator ===== */
