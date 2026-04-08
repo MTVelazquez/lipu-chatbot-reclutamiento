@@ -148,7 +148,7 @@
     // ===================== WELCOME =====================
     WELCOME: {
       message: () =>
-        '¡Hola! 👋 Bienvenido a Reclutamiento Lipu Monterrey.\n\nEn Lipu tenemos una misión clara: Movemos lo más valioso, conectamos destinos. 🚌✨\n\nQueremos que seas parte de este equipo que mueve a Monterrey. Cuéntanos, ¿cuál es tu perfil?',
+        '¡Hola! 👋 Bienvenido a Reclutamiento LiPU Monterrey.\n\nEn LiPU tenemos una misión clara: Movemos lo más valioso, conectamos destinos. 🚌✨\n\nQueremos que seas parte de este equipo que mueve a Monterrey. Cuéntanos, ¿cuál es tu perfil?',
       type: 'buttons',
       buttons: ['Soy Operador con Experiencia', 'Quiero Aprender'],
       next: (answer) => {
@@ -175,7 +175,7 @@
           state.candidate.tiene_licencia = 'No';
           state.candidate.estado_licencia = 'N/A';
           state.path = 'B';
-          return 'B_WELCOME';
+          return 'A_NO_LICENSE';
         } else if (answer === '✅ Sí, vigente') {
           state.candidate.tiene_licencia = 'Sí';
           state.candidate.estado_licencia = 'Vigente';
@@ -185,6 +185,14 @@
         }
         return 'A_NAME';
       }
+    },
+
+    A_NO_LICENSE: {
+      message: () =>
+        '¡No te preocupes! En LiPU tenemos la Escuela de Operadores donde te capacitamos y te pagamos mientras aprendes. 🎓\n\nVamos a registrarte para la Escuela.',
+      type: 'buttons',
+      buttons: ['¡Sí, quiero saber más!'],
+      next: () => 'B_STANDARD_CHECK'
     },
 
     A_NAME: {
@@ -200,7 +208,7 @@
 
     A_PREVIOUS_WORK: {
       message: () =>
-        `Gracias, ${state.candidate.nombre}. ¿Has laborado en Lipu, Settepi o Utep?`,
+        `Gracias, ${state.candidate.nombre}. ¿Has laborado en LiPU, Settepi o Utep?`,
       type: 'buttons',
       buttons: ['✅ Sí', '❌ No'],
       next: (answer) => {
@@ -222,7 +230,7 @@
 
     A_OFFER: {
       message: () =>
-        '¡Perfecto! Buscamos operadores que entiendan la responsabilidad de mover personas.\n\nTu oferta Lipu:\n\n💰 Estabilidad: Pago Semanal\n🏆 Reconocimiento: Bonos por rendimiento\n🛒 Vales de despensa\n📚 Capacitación pagada\n\n¿Te interesa agendar una entrevista?',
+        '¡Perfecto! Buscamos operadores que entiendan la responsabilidad de mover personas.\n\nTu oferta LiPU:\n\n💰 Estabilidad: Pago Semanal\n🏆 Reconocimiento: Bonos por rendimiento\n🛒 Vales de despensa\n📚 Capacitación pagada\n\n¿Te interesa agendar una entrevista?',
       type: 'buttons',
       buttons: ['✅ Sí, me interesa', '❌ No por ahora'],
       next: (answer) => {
@@ -254,7 +262,7 @@
 
     A_DONE: {
       message: () =>
-        `¡Gracias ${state.candidate.nombre}! 🎉\n\nTu información ha sido registrada. Un reclutador de Lipu se pondrá en contacto contigo pronto.\n\n¡Bienvenido al equipo que conecta destinos! 🚌✨`,
+        `¡Gracias ${state.candidate.nombre}! 🎉\n\nTu información ha sido registrada. Un reclutador de LiPU se pondrá en contacto contigo pronto.\n\n¡Bienvenido al equipo que conecta destinos! 🚌✨`,
       type: 'end'
     },
 
@@ -267,7 +275,24 @@
     // ===================== PATH B: ESCUELA =====================
     B_WELCOME: {
       message: () =>
-        '¡Buena decisión! 🎓 En la Escuela de Operadores Lipu te pagamos mientras aprendes y sales con trabajo seguro.\n\nPara entrar, solo necesitas:\n• Saber manejar estándar\n• Disponibilidad de horario para capacitación\n\n¿Sabes manejar estándar?',
+        '¡Buena decisión! 🎓 En la Escuela de Operadores LiPU te pagamos mientras aprendes y sales con trabajo seguro.\n\nPara entrar, solo necesitas:\n• Saber manejar estándar\n• Disponibilidad de horario para capacitación\n\n¿Sabes manejar estándar?',
+      type: 'buttons',
+      buttons: ['Sí, sé manejar', 'No, solo automático'],
+      next: (answer) => {
+        if (answer === 'No, solo automático') {
+          state.candidate.sabe_estandar = 'No';
+          return 'B_REJECTION';
+        } else {
+          state.candidate.sabe_estandar = 'Sí';
+          return 'B_VEHICLE';
+        }
+      }
+    },
+
+    // Separate entry for redirected users from Path A (no license)
+    B_STANDARD_CHECK: {
+      message: () =>
+        'Para entrar a la Escuela, solo necesitas:\n• Saber manejar estándar\n• Disponibilidad de horario para capacitación\n\n¿Sabes manejar estándar?',
       type: 'buttons',
       buttons: ['Sí, sé manejar', 'No, solo automático'],
       next: (answer) => {
@@ -343,7 +368,7 @@
 
     B_DONE: {
       message: () =>
-        `¡Gracias ${state.candidate.nombre}! 🎉\n\nTu información ha sido registrada. Un reclutador de Lipu se pondrá en contacto contigo para la Escuela de Operadores.\n\n¡Bienvenido al equipo que conecta destinos! 🚌✨`,
+        `¡Gracias ${state.candidate.nombre}! 🎉\n\nTu información ha sido registrada. Un reclutador de LiPU se pondrá en contacto contigo para la Escuela de Operadores.\n\n¡Bienvenido al equipo que conecta destinos! 🚌✨`,
       type: 'end'
     },
 
