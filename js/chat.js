@@ -171,28 +171,18 @@
       type: 'buttons',
       buttons: ['✅ Sí, vigente', '⚠️ Vencida', '❌ No tengo'],
       next: (answer) => {
-        if (answer === '❌ No tengo') {
-          state.candidate.tiene_licencia = 'No';
-          state.candidate.estado_licencia = 'N/A';
-          state.path = 'B';
-          return 'A_NO_LICENSE';
-        } else if (answer === '✅ Sí, vigente') {
+        if (answer === '✅ Sí, vigente') {
           state.candidate.tiene_licencia = 'Sí';
           state.candidate.estado_licencia = 'Vigente';
-        } else {
+        } else if (answer === '⚠️ Vencida') {
           state.candidate.tiene_licencia = 'Sí';
           state.candidate.estado_licencia = 'Vencida';
+        } else {
+          state.candidate.tiene_licencia = 'No';
+          state.candidate.estado_licencia = 'No tengo';
         }
         return 'A_NAME';
       }
-    },
-
-    A_NO_LICENSE: {
-      message: () =>
-        '¡No te preocupes! En LiPU tenemos la Escuela de Operadores donde te capacitamos y te pagamos mientras aprendes. 🎓\n\nVamos a registrarte para la Escuela.',
-      type: 'buttons',
-      buttons: ['¡Sí, quiero saber más!'],
-      next: () => 'B_STANDARD_CHECK'
     },
 
     A_NAME: {
@@ -289,22 +279,6 @@
       }
     },
 
-    // Separate entry for redirected users from Path A (no license)
-    B_STANDARD_CHECK: {
-      message: () =>
-        'Para entrar a la Escuela, solo necesitas:\n• Saber manejar estándar\n• Disponibilidad de horario para capacitación\n\n¿Sabes manejar estándar?',
-      type: 'buttons',
-      buttons: ['Sí, sé manejar', 'No, solo automático'],
-      next: (answer) => {
-        if (answer === 'No, solo automático') {
-          state.candidate.sabe_estandar = 'No';
-          return 'B_REJECTION';
-        } else {
-          state.candidate.sabe_estandar = 'Sí';
-          return 'B_VEHICLE';
-        }
-      }
-    },
 
     B_REJECTION: {
       message: () =>
