@@ -181,6 +181,17 @@
           state.candidate.tiene_licencia = 'No';
           state.candidate.estado_licencia = 'No tengo';
         }
+        return 'A_VEHICLE';
+      }
+    },
+
+    A_VEHICLE: {
+      message: () =>
+        '¿Qué tipo de unidades tienes experiencia manejando?',
+      type: 'buttons',
+      buttons: ['Vehículo estándar', 'Plataforma', 'Autobús', 'Otra'],
+      next: (answer) => {
+        state.candidate.tipo_vehiculo = answer;
         return 'A_NAME';
       }
     },
